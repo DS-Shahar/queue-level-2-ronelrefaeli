@@ -26,3 +26,14 @@ public class Main
         return countLeaves(node.getLeft()) + countLeaves(node.getRight());
     }
 }
+public static <T> boolean allRightHaveLeft(BinNode<T> root) 
+{
+    if (root == null)
+        return true;
+
+    if (root.getRight() != null && root.getLeft() == null)
+        return false;
+
+    return allRightHaveLeft(root.getLeft()) && allRightHaveLeft(root.getRight());
+}
+
