@@ -1,68 +1,62 @@
-
-    public static int EX12(BinNode<Integer> node)
-    {
-        if (node == null)
-            return 0;
-        int c = (node.getValue() >= 10 && node.getValue() < 100) ? 1 : 0;
-        return c + EX12(node.getLeft()) + EX12(node.getRight());
-    }
-
-    public static int EX14(BinNode<?> node)
-    {
-        if (node == null)
-            return 0;
-        if (!node.hasLeft() && !node.hasRight())
-            return 1;
-        return EX14(node.getLeft()) + EX14(node.getRight());
-    }
-
-    public static int EX16(BinNode<Integer> node)
-    {
-        if (node == null)
-            return 0;
-        int sum = 0;
-        if (node.hasLeft() && node.hasRight())
-            sum = node.getValue();
-        return sum + EX16(node.getLeft()) + EX16(node.getRight());
-    }
-
-    public static int EX17(BinNode<Double> node)
-        {
-        if (node == null)
-            return 0;
-        int c = 0;
-        if (node.hasLeft() && node.hasRight() && node.getLeft().getValue() % 1 != 0 && node.getRight().getValue() % 1 != 0)
-            c = 1;
-        return c + EX17(node.getLeft()) + EX17(node.getRight());
-    }
-}
-
-
-
-public static void ex1(BinNode<Integer> node)
-    {
-    int count1=0:
-     int count2=0:   
-    if (node==null)
+public static int tree12(BinNode<Integer> t){
+    if(t==null)
         return 0;
-    BinNode <Integer> n=node
-    while (node!=null)
-        {
-            count1++;
-            node.getLeft());
-        }
-    while (n!=null)
-        {
-         
-            count2++;
-            n.getLeft();
-        }
-    return count1+count2;
+    if(t.getValue()==10 || t.getValue()<100)
+        return 1 + tree12(t.getLeft()) + tree12(t.getRight());
+    return tree12(t.getLeft()) + tree12(t.getRight());
 }
-    
-    
-            
-    
 
+public static int tree14(BinNode<Integer> t){
+    if(t==null)
+        return 0;
+    if(t.getLeft()==null && t.getRight()==null)
+        return 1;
+    return tree14(t.getLeft()) + tree14(t.getRight());
+}
 
+public static int tree16(BinNode<Integer> t){
+    if(t==null)
+        return 0;
+    if(t.getLeft()!=null && t.getRight()!=null)
+        return t.getValue() + tree16(t.getLeft()) + tree16(t.getRight());
+    return tree16(t.getLeft()) + tree16(t.getRight());
+}
 
+public static int tree17(BinNode<Integer> t){
+    if(t==null)
+        return 0;
+    if(t.getLeft()!=null && t.getRight()!=null &&!(t.getLeft().getLeft()==null && t.getLeft().getRight()==null) &&!(t.getRight().getLeft()==null && t.getRight().getRight()==null))
+        return 1 + tree17(t.getLeft()) + tree17(t.getRight());
+    return tree17(t.getLeft()) + tree17(t.getRight());
+}
+
+public static boolean tree18(BinNode<Integer> t1, BinNode<Integer> t2){
+    return sumTree(t1) > sumTree(t2);
+}
+
+public static int sumTree(BinNode<Integer> t){
+    if(t==null)
+        return 0;
+    return t.getValue() + sumTree(t.getLeft()) + sumTree(t.getRight());
+}
+
+public static boolean tree20(BinNode<Integer> t, int n){
+    boolean[] arr = new boolean[n+1];
+    if(!checkTree(t, arr))
+        return false;
+    for(int i=1;i<=n;i++){
+        if(!arr[i])
+            return false;
+    }
+    return true;
+}
+
+public static boolean checkTree(BinNode<Integer> t, boolean[] arr){
+    if(t==null)
+        return true;
+    int x = t.getValue();
+    if(x<1 || x>=arr.length || arr[x])
+        return false;
+    arr[x]=true;
+    return checkTree(t.getLeft(),arr) && checkTree(t.getRight(),arr);
+}
